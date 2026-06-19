@@ -30,8 +30,9 @@ class UserLoginTest extends TestCase
             'password' => 'password123',
         ]);
 
-        $response = $this->get('/');
+        $response = $this->get(route('dashboard'));
 
         $response->assertStatus(200);
+        $response->assertViewIs('dashboard');
     }
 }
