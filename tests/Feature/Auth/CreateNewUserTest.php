@@ -20,12 +20,8 @@ class CreateNewUserTest extends TestCase
     
     public function test_user_creation(): void
     {
-        $this->post(route('register.store'), [
-            'name' => 'John Doe',
-            'email' => 'john@example.com',
-            'password' => 'password',
-            'password_confirmation' => 'password',
-        ]);
+        $this->post(route('register.store'), $this->registrationMock());
+        $this->assertDatabaseCount('users', 1);
 
         $this->assertDatabaseHas('users', [
             'email' => 'john@example.com',
@@ -34,12 +30,7 @@ class CreateNewUserTest extends TestCase
 
     public function test_user_login_after_registration(): void
     {
-        $response = $this->post(route('register.store'), [
-            'name' => 'John Doe',
-            'email' => 'john@example.com',
-            'password' => 'password',
-            'password_confirmation' => 'password',
-        ]);
+        $response = $this->post(route('register.store'), $this->registrationMock());
 
         $this->assertAuthenticated();
 

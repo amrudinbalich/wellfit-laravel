@@ -23,12 +23,7 @@ class DashboardTest extends TestCase
     public function test_dashboard_access_when_authenticated(): void
     {
         // make user
-        $this->post(route('register.store'), [
-            'name' => 'John Doe',
-            'email' => 'john@example.com',
-            'password' => 'password',
-            'password_confirmation' => 'password',
-        ]);
+        $this->post(route('register.store'), $this->registrationMock());
 
         $this->assertAuthenticated();
 
